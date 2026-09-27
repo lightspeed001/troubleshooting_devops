@@ -17,6 +17,7 @@
 kubectl logs -n kube-system kube-spiserver-<node-name>
 
 ```
+
 - Verify Etcd health (if managing Etcd directly)
 
 ```bash
@@ -390,7 +391,7 @@ diff wrking.yaml failing.yaml
 
 ```
 
-### Tools to Help
+### Tools to Help :hammer_and_wrench:
 
 > `kubectl debug` : for inspecting failing pods.
 > `stern`: Multi-pod log tailing:
