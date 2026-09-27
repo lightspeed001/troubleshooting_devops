@@ -79,7 +79,7 @@ kubectl get quota -n <your-namespace>
 
 > **Deployment Status**
 
-- Chck deploymeny status:
+- Check deployment status:
 
 ```bash
 kubectl get deploy <deployment-name> -o wide
@@ -273,7 +273,7 @@ kubect; get k8spsp... # If using DFA Gatekeeper
 
 ```
 
-### 8. Custome Resource Definitions (CRDs)
+### 8. Custom Resource Definitions (CRDs)
 
 > **CRD Status**
 
