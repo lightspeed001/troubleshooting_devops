@@ -17,6 +17,7 @@
 kubectl logs -n kube-system kube-spiserver-<node-name>
 
 ```
+
 - Verify Etcd health (if managing Etcd directly)
 
 ```bash
@@ -79,7 +80,7 @@ kubectl get quota -n <your-namespace>
 
 > **Deployment Status**
 
-- Chck deploymeny status:
+- Check deployment status:
 
 ```bash
 kubectl get deploy <deployment-name> -o wide
@@ -273,7 +274,7 @@ kubect; get k8spsp... # If using DFA Gatekeeper
 
 ```
 
-### 8. Custome Resource Definitions (CRDs)
+### 8. Custom Resource Definitions (CRDs)
 
 > **CRD Status**
 
@@ -390,7 +391,7 @@ diff wrking.yaml failing.yaml
 
 ```
 
-### Tools to Help
+### Tools to Help :hammer_and_wrench:
 
 > `kubectl debug` : for inspecting failing pods.
 > `stern`: Multi-pod log tailing:
