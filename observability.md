@@ -227,3 +227,63 @@ When a problem is immediately obvious (eg. high latency, errors or crashes ), fo
 
 - Optimize database queries or scale the database.
 
+---
+
+### 5. Common Observability Pitfalls
+
+> 1. Missing Metrics
+
+- Ensure Prometheus is scraping your app (check `scrape_configs`)
+- Add custom metrics if needed (eg. `prometheus-adapter`)
+
+> 2. Log Sampling
+
+- Loki may sample logs under high load. Adjust `limits_config` Loki values
+
+> 3. Metric Cardinality Explosion
+
+- Too many labels (eg. `pod=.*`) can overwhelm Prometheus. Use `keep_common` or `drop` in relabeling.
+
+> 4. Grafana Dashboard Lag
+
+- Refresh dashboards or check for slow queries in Grafana logs.
+
+---
+
+### 6. Tools to Enhance Observability
+
+> kube-prometheus-stack: Per-configured Prometheus, Grafana and Alertmanager for Kubernetes.
+> Tempo: Distributed tracing (integrate with Prometheus/Grafana)
+> Grafana OnCall: Alerting and incident Prometheus alternative.
+> VictoriaMetrics: High-performance Prometheus alternative.
+> Mimir: Long-term metrics storage for Prometheus.
+
+---
+
+### Final Checklist :spiral_notepad:
+
+> 1. Prometheus
+
+- Check target health.
+- Query key metrics (CPU, memory, latency, errors)
+- Review alerts
+
+> 2. Grafana
+
+- Inspect relevant dashboards
+- Correlate metrics with visual anomalies.
+
+> 3. Loki
+
+- Query logs for errors or slow requests.
+- Correlate logs with metrics.
+
+> 4. Kubernetes
+
+- Check pod status, events and logs.
+
+> 5. Action
+
+- Scale, restart or optimize base on findings.
+
+
