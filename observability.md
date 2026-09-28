@@ -1,7 +1,7 @@
 # troubleshooting_devops
 ## Troubleshooting Prometheus, Grafana and Loki
 
-Prometheus collets metrics from your Kubernetes luster. Use these steps to diagnose issues when metrics indicate a problem.
+Prometheus collects metrics from your Kubernetes luster. Use these steps to diagnose issues when metrics indicate a problem.
 
 ### 1. Prometheus: Metrics-Based Troubleshooting
 
@@ -187,13 +187,13 @@ logcli query '{namespace="<your-namespace>", pod=~"<pod-name>.*"}' --addr=http:/
 
 When a problem is immediately obvious (eg. high latency, errors or crashes ), follow this workflow:
 
-** Step 1: Identify the Symptom**
+**Step 1: Identify the Symptom**
 
 - Prometheus: High CPU, ,emory, latency or errors.
 - Grafana: Visual anomalies in dashboards.
 - Loki: Error logs or slow requests.
 
-** Step 3: Correlate Data**
+**Step 3: Correlate Data**
 
 - Prometheus: High resource usage, error rates, latency spikes.
 - Grafana: Visual confirmation of anomalies in dashborads.
@@ -203,8 +203,11 @@ When a problem is immediately obvious (eg. high latency, errors or crashes ), fo
 **Step 4: Take Action**
 
 > Scale Up: If CPU/Memory is high, increase resources or optimize the app.
+
 > Restart Pods: If a pod is stuck in `CrashLoopBackOff`, delete it to forcea restart.
+
 > Check dependencies: If latency is high, verify database/API health.
+
 > Rollback: If a recent change caused the issue, roll back the deployment.
 
 **Example Scenario: High Latency**
@@ -253,9 +256,13 @@ When a problem is immediately obvious (eg. high latency, errors or crashes ), fo
 ### 6. Tools to Enhance Observability
 
 > kube-prometheus-stack: Per-configured Prometheus, Grafana and Alertmanager for Kubernetes.
+
 > Tempo: Distributed tracing (integrate with Prometheus/Grafana)
+
 > Grafana OnCall: Alerting and incident Prometheus alternative.
+
 > VictoriaMetrics: High-performance Prometheus alternative.
+
 > Mimir: Long-term metrics storage for Prometheus.
 
 ---
