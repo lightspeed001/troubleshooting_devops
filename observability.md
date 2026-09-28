@@ -181,3 +181,49 @@ logcli query '{namespace="<your-namespace>", pod=~"<pod-name>.*"}' --addr=http:/
 ```
 - Check if these ogs correlate with CPU/memory usage.
 
+---
+
+### 4. End-to-End Observability Workflow
+
+When a problem is immediately obvious (eg. high latency, errors or crashes ), follow this workflow:
+
+** Step 1: Identify the Symptom**
+
+- Prometheus: High CPU, ,emory, latency or errors.
+- Grafana: Visual anomalies in dashboards.
+- Loki: Error logs or slow requests.
+
+** Step 3: Correlate Data**
+
+- Prometheus: High resource usage, error rates, latency spikes.
+- Grafana: Visual confirmation of anomalies in dashborads.
+- Loki: Error messages, stack traces, or slow requests.
+- Kubernetes: Pod status, events, and logs (`kubectl describe`, `kubectl logs`)
+
+**Step 4: Take Action**
+
+> Scale Up: If CPU/Memory is high, increase resources or optimize the app.
+> Restart Pods: If a pod is stuck in `CrashLoopBackOff`, delete it to forcea restart.
+> Check dependencies: If latency is high, verify database/API health.
+> Rollback: If a recent change caused the issue, roll back the deployment.
+
+**Example Scenario: High Latency**
+
+> 1. Prometheus
+
+- Query: `histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{service=""}[5m])) by (le))`
+- Result: 95th percentile latency is 2s (normal is 200ms).
+
+> 2. Grafana
+
+- Dashboard shows spikes in latency for `<your-service>`
+
+> 3. Loki
+
+- Query: `{service="<your-service>"} | duration > "1s"`
+- Result: Logs show slow database queries
+
+> 4. Action
+
+- Optimize database queries or scale the database.
+
