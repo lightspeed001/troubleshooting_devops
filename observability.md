@@ -106,3 +106,36 @@ Common alerts to investigate:
 - `KubeNodeNotReady`
 - `HighCPUUsage`
 
+---
+
+### 2. Grafana: Visualizing Metrics
+
+Grafana provides dashbords to visualize Prometheus metrics. Use these steps to correlate issues.
+
+**A. Access Grafana**
+
+- Port-forward Grafana:
+
+```bash
+kubectl port-forward svc/grafana -n monitory 3000:3000
+
+```
+- Log in (default credentials: `admin/admin` or check your Helm values).
+
+**B. Key Dashboards to Check**
+
+- Kubernetes/Compute Resources/Namespace (Pods) - CPU/Memory usage per pod.
+- Kubernetes/Networking/Namespace- Networking traffic, errors and latency
+- Kubernetes/Persistent Volumes = Disk I/O and storage erformance.
+- Kubernetes/API Server: API server latency and error rates.
+- Custom Application Dashboards: Metrics specific to your app (eg. HTTP requests, database queries).
+
+**C. Correlate Metrics with Issues**
+
+> Example: If a pod is crashing (`CrashLoopBackOff`), check:
+
+- CPU/Memory: Is the pod OOMKilled or CPU throttled?
+- Network: Are there connection errors to dependencies?
+- Disk: Is the PVC full or slow?
+- Logs: Check Loki for application errors.
+
