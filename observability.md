@@ -139,3 +139,45 @@ kubectl port-forward svc/grafana -n monitory 3000:3000
 - Disk: Is the PVC full or slow?
 - Logs: Check Loki for application errors.
 
+---
+
+### 3. Loki: Log-Based Troubleshooting
+
+Loki aggregates logs from from your Kubernetes cluster. Use these steps when reveal the issue.
+
+**A. Access Loki**
+
+> Port-forward Loki:
+
+```bash
+kubectl port-forward svc/loki -n 3100:3100
+
+```
+> Use Grafana Explore (select Loki as the data source) or `logcli`
+
+```bash
+logcli query '{namespace="<your-namespace>", pod=~"<pod-name>.*"}' --addr=http://loki:3100
+
+```
+
+**B. Key Log Queries**
+
+- Application Errors: `{namespace="<your-namespace>"} |~ "error|exception|failed"`
+- Pod Crash Reasons: `{namespace="<your-namespace>"} |~ "OOMKilled|SIGKILL|CrashLoopBackOff"`
+- HTTP 5xx Errors:`{namespace="<your-namespace>"} |~ "HTTP/1.1\" 5[0-9]{2}"`
+- Slow Requests: `{namespace="<your-namespace>"} | duration > "1s"`
+- Database Connection Issues: `{namespace="<your-namespace>"} |~ "connection refused|timeout"`
+
+
+**C. Correlate Logs with Metrics**
+
+> Examples: If Prometheus shows high katency.
+
+- Query Loki for slow requests:
+
+```loki
+{namespace="<your-namespace>"} | duration > "1s"
+
+```
+- Check if these ogs correlate with CPU/memory usage.
+
